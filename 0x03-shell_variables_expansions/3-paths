@@ -1,0 +1,2 @@
+#!/bin/bash
+echo $PATH | tr -dc ':' | echo "$((1+$(wc -c)))" 
