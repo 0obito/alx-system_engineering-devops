@@ -1,4 +1,4 @@
 # This puppet code installs flask from pip3
-package { 'flask':
+package { 'flask 2.1.0':
 ensure => installed,
 }
