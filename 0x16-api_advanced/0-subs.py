@@ -5,17 +5,20 @@ this is a 0-subs.py module
 import requests
 
 
-if __name__ == "__main__":
-    def number_of_subscribers(subreddit):
-        """
-        returns the total number of subscribers in a given subreddit
-        """
-        url = f"https://www.reddit.com/r/{subreddit}/about.json"
-        headers = {'User-Agent': 'API Practice'}
-        response = requests.get(url, headers=headers, allow_redirects=False)
+def number_of_subscribers(subreddit):
+    """
+    returns the total number of subscribers in a given subreddit
+    """
+    if subreddit is None or not isinstance(subreddit, str):
+        return 0
 
-        if response.status_code != 200:
-            return 0
-        else:
-            data = response.json()
-            return data['data']['subscribers']
+    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    response = requests.get(url, headers=user_agent)
+    results = response.json()
+
+    try:
+        return results.get('data').get('subscribers')
+
+    except Exception:
+        return 0
